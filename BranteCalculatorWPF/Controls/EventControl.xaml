@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="BranteCalculatorWPF.Controls.EventControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+
+
+    <StackPanel HorizontalAlignment="Stretch">
+        <TextBlock Text="{Binding LocalizedName}" FontWeight="Bold" FontSize="20"/>
+        <TextBlock Text="{Binding RequirementsText}" 
+                   Margin="20,0,0,5"
+                   TextWrapping="Wrap" 
+                   MaxWidth="500"
+                   FontStyle="Italic" 
+                   Foreground="Goldenrod"
+                   HorizontalAlignment="Stretch"/>
+
+        <ItemsControl ItemsSource="{Binding Decisions}" HorizontalAlignment="Stretch">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <RadioButton Content="{Binding LocalizedName}" 
+                                     IsChecked="{Binding IsChecked, Mode=TwoWay}" 
+                                     IsEnabled="{Binding IsAvailable, Mode=OneWay}"
+                                     Checked="Decision_Checked">
+                            <RadioButton.Style>
+                                <Style TargetType="RadioButton">
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsAvailable}" Value="False" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Foreground" Value="Gray" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>
+                        </RadioButton>
+
+                        <TextBlock Text="{Binding ConsequancesText}" 
+                                   Margin="20,0,0,5"
+                                   TextWrapping="Wrap"
+                                   MaxWidth="500"
+                                   FontStyle="Italic" 
+                                   Foreground="Green"
+                                   HorizontalAlignment="Stretch"/>
+                        <TextBlock Text="{Binding RequirementsText}" 
+                                   Margin="20,0,0,5"
+                                   TextWrapping="Wrap"
+                                   MaxWidth="500"
+                                   FontStyle="Italic" 
+                                   Foreground="Goldenrod"
+                                   HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</UserControl>
