@@ -3767,6 +3767,28 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => Reputation.Add(-1)))
     .Build());
 
+            Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_DEBACLE_IN_THE_SHOP", true)
+    .WithRequirement(() => PathOfTheNobleman == true)
+    .WithRequirement(() => Justice >= 8)
+    .WithHiddenRequirement(() => !FinalPreparations.HasPassed)
+    .WithDecision("EVENTS_PEACETIME_JUDGE_DEBACLE_IN_THE_SHOP_DECISION_ACQUIT_THE_STEINERS", decision => decision
+        .WithRequirement(() => Eloquence >= 10 || Diplomacy >= 16)
+        .WithConsequence(() => Eloquence.Add(1))
+        .WithConsequence(() => Career.Add(-1))
+        .WithConsequence(() => Justice.Add(2)))
+    .WithDecision("EVENTS_PEACETIME_JUDGE_DEBACLE_IN_THE_SHOP_DECISION_GRANT_THE_RIGHT_OF_SELF_DEFENCE", decision => decision
+        .WithRequirement(() => PatronageOfThePowerful == true)
+        .WithConsequence(() => Power.Add(1))
+        .WithConsequence(() => Diplomacy.Add(1))
+        .WithConsequence(() => Justice.Add(2))
+        .WithConsequence(() => Tempest.Add(-1))
+        .WithConsequence(() => ProtectorOfThePeople.Check()))
+    .WithDecision("EVENTS_PEACETIME_JUDGE_DEBACLE_IN_THE_SHOP_DECISION_PUNISH_THE_STEINERS", decision => decision
+        .WithConsequence(() => Diplomacy.Add(1))
+        .WithConsequence(() => Willpower.Add(5))
+        .WithConsequence(() => Justice.Add(-2)))
+    .Build());
+
             Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_AN_AUDIENCE_WITH_THE_OVERSEER", true)
     .WithRequirement(() => PathOfTheNobleman == true)
     .WithRequirement(() => Career >= 8)
