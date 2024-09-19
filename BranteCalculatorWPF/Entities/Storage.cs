@@ -3853,18 +3853,18 @@ namespace BranteCalculator.Entities
     .WithRequirement(() => PathOfTheNobleman == true)
     .WithRequirement(() => Career <= 2)
     .WithHiddenRequirement(() => !FinalPreparations.HasPassed)
-    .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_ASK_FATHER_FOR_HELP", decision => decision
+    .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_ASK_YOUR_FATHER_FOR_HELP", decision => decision
         .WithRequirement(() => Willpower >= 0)
         .WithRequirement(() => Robert >= 3)
         .WithConsequence(() => Diplomacy.Add(1))
         .WithConsequence(() => Willpower.Add(-5))
         .WithConsequence(() => Career.Add(2))
         .WithConsequence(() => Reputation.Add(-1)))
-    .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_ANNUL_DECISIONS", decision => decision
+    .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_ANNUL_YOUR_DECISIONS", decision => decision
         .WithConsequence(() => Diplomacy.Add(1))
         .WithConsequence(() => Career.Add(2))
         .WithConsequence(() => Justice.Add(-3)))
-    .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_CONTINUE_FIGHT", decision => decision
+    .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_ASK_A_POWERFUL_BENEFACTOR_TO_PROTECT_YOUR_HONOR", decision => decision
         .WithConsequence(() => Valor.Add(1))
         .WithConsequence(() => Career.Add(-1)))
     .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_ASK_BENEFACTOR", decision => decision
