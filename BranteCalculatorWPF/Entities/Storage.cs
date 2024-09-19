@@ -1728,8 +1728,8 @@ namespace BranteCalculator.Entities
     .WithDecision("EVENTS_PEACETIME_GENERAL_BROTHERS_IN_MISERY_DECISION_REFUSE_TO_HELP", decision => decision
         .WithConsequence(() => Willpower.Add(5))
         .WithConsequence(() => Reputation.Add(-2))
-        .WithConsequence(() => Stephan.Add(1))
-        .WithConsequence(() => Nathan.Add(1)))
+        .WithConsequence(() => Stephan.Add(-1))
+        .WithConsequence(() => Nathan.Add(-1)))
     .Build());
             Events.Add(BrothersInMisery);
 
