@@ -2750,24 +2750,9 @@ namespace BranteCalculator.Entities
         .WithHiddenConsequence(() => Gloria.SetName("CHARACTER_GLORIA_EL_PELETIER")))
     .Build());
 
-            Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_THE_RUNAWAY_BRIDE")
-                .WithRequirement(() => Gloria != Status.MARRIED)
-                .WithRequirement(() => Gloria != Status.SEVERED_ALL_TIES)
-                .WithRequirement(() => GloriaBrante == false)
-                .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
-                    .WithConsequence(() => Stephan.Add(-1))
-                    .WithConsequence(() => Stephan.Set(Status.AT_HOME))
-                    .WithConsequence(() => Gloria.Set(Status.FLED))
-                    .WithConsequence(() => Reputation.Add(-2))
-                    .WithConsequence(() => Unity.Add(-2))
-                    .WithConsequence(() => Stephan.Add(-1))
-                    .WithConsequence(() => Unity.Add(-1)))
-                .Build());
-
-
             Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_A_BROKEN_BRANCH")
                 .WithRequirement(() => Stephan == Status.BAD_BLOOD)
-                .WithDecision("EVENTS_PEACETIME_GENERAL_A_BROKEN_BRANCH_DECISION_SEVER_TIES", decision => decision
+                .WithDecision("EVENTS_PEACETIME_GENERAL_A_BROKEN_BRANCH_DECISION_SEVER_ALL_TIES_WITH_STEPHAN", decision => decision
                     .WithConsequence(() => Reputation.Add(-10))
                     .WithConsequence(() => Unity.Add(-1))
                     .WithConsequence(() => Heir.Check())
@@ -2777,7 +2762,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Gloria.Add(1))
                     .WithConsequence(() => GloriaBrante.Check())
                     .WithHiddenConsequence(() => Gloria.SetName("CHARACTER_GLORIA_BRANTE")))
-                .WithDecision("EVENTS_PEACETIME_GENERAL_A_BROKEN_BRANCH_DECISION_MAINTAIN_TIES", decision => decision
+                .WithDecision("EVENTS_PEACETIME_GENERAL_A_BROKEN_BRANCH_DECISION_MAINTAIN_FAMILY_TIES_WITH_STEPHAN", decision => decision
                     .WithRequirement(() => Unity >= 5)
                     .WithRequirement(() => Stephan >= 1)
                     .WithConsequence(() => Reputation.Add(-10))
@@ -2787,6 +2772,20 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => GloriaBrante.Check())
                     .WithHiddenConsequence(() => Gloria.SetName("CHARACTER_GLORIA_BRANTE")))
                 .Build());
+
+            Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_THE_RUNAWAY_BRIDE")
+               .WithRequirement(() => Gloria != Status.MARRIED)
+               .WithRequirement(() => Gloria != Status.SEVERED_ALL_TIES)
+               .WithRequirement(() => GloriaBrante == false)
+               .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
+                   .WithConsequence(() => Stephan.Add(-1))
+                   .WithConsequence(() => Stephan.Set(Status.AT_HOME))
+                   .WithConsequence(() => Gloria.Set(Status.FLED))
+                   .WithConsequence(() => Reputation.Add(-2))
+                   .WithConsequence(() => Unity.Add(-2))
+                   .WithConsequence(() => Stephan.Add(-1))
+                   .WithConsequence(() => Unity.Add(-1)))
+               .Build());
 
             Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_TOMMASS_WEDDING")
                 .WithRequirement(() => Tommas != Status.TRUE_DEATH)
@@ -3475,7 +3474,7 @@ namespace BranteCalculator.Entities
             //Peacetime general family optional events
 
             Events.Add(new EventBuilder("EVENTS_PEACETIME_GENERAL_GLORIA_OF_HOUSE_BRANTE", true)
-    .WithRequirement(() => Gloria == Status.AT_HOME) 
+    .WithRequirement(() => Gloria == Status.AT_HOME)
     .WithRequirement(() => FamilyAtPeace == true)
     .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
         .WithConsequence(() => Gloria.Add(2))
@@ -3886,10 +3885,10 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => Diplomacy.Add(1))
         .WithConsequence(() => Career.Add(2))
         .WithConsequence(() => Justice.Add(-3)))
-    .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_ASK_A_POWERFUL_BENEFACTOR_TO_PROTECT_YOUR_HONOR", decision => decision
+    .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_CONTINUE_THE_FIGHT", decision => decision
         .WithConsequence(() => Valor.Add(1))
         .WithConsequence(() => Career.Add(-1)))
-    .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_ASK_BENEFACTOR", decision => decision
+    .WithDecision("EVENTS_PEACETIME_JUDGE_CHUTES_AND_LADDERS_DECISION_ASK_A_POWERFUL_BENEFACTOR_TO_PROTECT_YOUR_HONOR", decision => decision
         .WithRequirement(() => Diplomacy >= 15)
         .WithRequirement(() => Tempest >= 0)
         .WithRequirement(() => PatronageOfThePowerful == true)
@@ -4338,9 +4337,9 @@ namespace BranteCalculator.Entities
     .Build());
 
             Events.Add(new EventBuilder("EVENTS_REVOLT_CONSPIRATOR_TO_ARMS")
+                .WithRequirement(() => PathOfTheLotless == true)
+                .WithRequirement(() => StockpileOfArms == true)
                 .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
-                    .WithRequirement(() => PathOfTheLotless == true)
-                    .WithRequirement(() => StockpileOfArms == true)
                     .WithConsequence(() => Troops.Add(1)))
                 .Build());
 
@@ -5368,13 +5367,13 @@ namespace BranteCalculator.Entities
             Characters = new List<Character> { Gregor, Robert, Lydia, Stephan, Gloria, Nathan, Tommas, Sophia, Octavia, Jeanne, Otton, Felipe, Tempest, Milanidas, Egmont, Mark, ElVerman, Lennart, Cassius, Silvan };
         }
 
-        public void Reset() 
+        public void Reset()
         {
             InitializeStats();
             InitializeCharacters();
             InitializeFlags();
-            
-            foreach(Event gameEvent in Events) 
+
+            foreach (Event gameEvent in Events)
             {
                 gameEvent.HasPassed = false;
             }
