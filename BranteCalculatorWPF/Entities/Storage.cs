@@ -3733,6 +3733,8 @@ namespace BranteCalculator.Entities
 .WithRequirement(() => PathOfTheNobleman == true)
 .WithRequirement(() => Justice >= 5)
 .WithRequirement(() => ElVerman != Status.MADE_A_DEAL)
+.WithHiddenRequirement(() => TheCaseOfFatherMark.HasPassed)
+.WithHiddenRequirement(() => !ARendezvousWithOctavia.HasPassed)
 .WithDecision("EVENTS_PEACETIME_JUDGE_FRIEND_OF_THE_PEOPLE_DECISION_AGREE", decision => decision
    .WithRequirement(() => ElVerman != Status.MADE_A_DEAL)
    .WithConsequence(() => WealthOfMagra.Add(2))
@@ -3746,7 +3748,6 @@ namespace BranteCalculator.Entities
 
 
             Events.Add(new EventBuilder("EVENTS_PEACETIME_JUDGE_THE_ROAD_TO_THE_TOP", true)
-    //mark
     .WithRequirement(() => PathOfTheNobleman == true)
     .WithRequirement(() => Career >= 5)
     .WithRequirement(() => BrandedByDishonor == false)
