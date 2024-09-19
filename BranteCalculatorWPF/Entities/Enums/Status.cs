@@ -88,7 +88,6 @@ namespace BranteCalculator.Entities.Enums
         public static readonly Status DOOMED_FOR_HER_SIN = new Status("CHARACTER_STATUS_JEANNE_DOOMED_FOR_HER_SIN");
         public static readonly Status BURIED_ALIVE = new Status("CHARACTER_STATUS_JEANNE_BURIED_ALIVE");
         public static readonly Status RECONCILED = new Status("CHARACTER_STATUS_DORIUS_OTTON_RECONCILED");
-        public static readonly Status SENTENCED = new Status("CHARACTER_STATUS_DORIUS_OTTON_SENTENCED");
         public static readonly Status PROPHET = new Status("CHARACTER_STATUS_NATHAN_BRANTE_PROPHET");
 
         private Status(string name) : base(name)

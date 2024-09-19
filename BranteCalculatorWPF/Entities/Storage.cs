@@ -4511,7 +4511,7 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => ElBorne.Set(Status.REBEL))
         .WithConsequence(() => TheRebel.Check()))
     .WithDecision("EVENTS_REVOLT_GENERAL_THE_PREFECTURE_UNDER_SIEGE_DECISION_GET_OTTONS_ARMY_TO_ABANDON_HIM", decision => decision
-        .WithRequirement(() => Otton == Status.SENTENCED)
+        .WithRequirement(() => OttonIsSentenced == true)
         .WithRequirement(() => TheDefenderOfTheEmpire == false)
         .WithRequirement(() => Nobles >= 1)
         .WithRequirement(() => Diplomacy >= 16)
