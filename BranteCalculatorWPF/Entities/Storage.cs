@@ -989,7 +989,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Jeanne.Set(Status.ZEALOUS))
                     .WithConsequence(() => Aylis.Set(Status.TRUE_DEATH)))
                 .WithDecision("EVENTS_YOUTH_PRIEST_THE_BLACK_BOOK_DECISION_GUIDE_YOUR_FRIEND_TO_THE_RIGHT_PATH", decision => decision
-                    .WithRequirement(() => Jeanne == Status.ACQUAINTED)
+                    .WithRequirement(() => Jeanne == Status.AQUAINTED)
                     .WithConsequence(() => Manipulation.Add(1))
                     .WithConsequence(() => Jeanne.Set(Status.WAVERING))
                     .WithConsequence(() => AylissRescue.Check()))
@@ -1669,8 +1669,8 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => ElBorne.Add(-1))
         .WithConsequence(() => Milanidas.Add(1)))
     .WithDecision("EVENTS_PEACETIME_JUDGE_THE_VASSAL_AND_THE_LORD_DECISION_DEFUSE_THE_SITUATION", decision => decision
-        .WithRequirement(() => Diplomacy >= 13)
-        .WithRequirement(() => VictoryInTheTournament == true || Octavia == Status.INTRIGUED)
+        .WithRequirement(() => Octavia == Status.INTRIGUED)
+        .WithRequirement(() => Diplomacy >= 13 || VictoryInTheTournament == true)
         .WithConsequence(() => Willpower.Add(-5))
         .WithConsequence(() => ElBorne.Add(1)))
     .Build());
@@ -1682,8 +1682,7 @@ namespace BranteCalculator.Entities
         .WithConsequence(() => Octavia.Add(1))
         .WithConsequence(() => Octavia.Set(Status.YOUR_PATRON)))
     .WithDecision("EVENTS_PEACETIME_JUDGE_PASSION_DECISION_INSIST_ON_BEING_TREATED_AS_HER_EQUAL", decision => decision
-        .WithRequirement(() => Octavia >= 2)
-        .WithRequirement(() => Octavia == Status.INTRIGUED)
+        .WithRequirement(() => Octavia >= 2 || Octavia == Status.INTRIGUED)
         .WithConsequence(() => Willpower.Add(-5))
         .WithConsequence(() => Octavia.Add(2))
         .WithConsequence(() => Octavia.Set(Status.GROWN_CLOSE)))
@@ -3427,7 +3426,18 @@ namespace BranteCalculator.Entities
                     .WithRequirement(() => Justice < 10)
                     .WithRequirement(() => ElBorne != Status.BETRAYED)
                     .WithRequirement(() => EvidenceAgainstOtton == false)
-                    .WithRequirement(() => ProtectorOfThePeople == true))
+                    .WithRequirement(() => ProtectorOfThePeople == true)
+                    .WithConsequence(() => Otton.Add(-4))
+                    .WithConsequence(() => WealthOfMagra.Add(1))
+                    .WithConsequence(() => Order.Add(2))
+                    .WithConsequence(() => OttonIsSentenced.Check())
+                    .WithConsequence(() => Sophia.Set(Status.LEADING_THE_REVOLT))
+                    .WithConsequence(() => ElVerman.Set(Status.TRUE_DEATH))
+                    .WithConsequence(() => Revolt.Add(2))
+                    .WithConsequence(() => CommonFolk.Add(2))
+                    .WithConsequence(() => Nobles.Add(1))
+                    .WithConsequence(() => Clergy.Add(1))
+                    .WithConsequence(() => Troops.Add(1)))
                 .WithDecision("EVENTS_PEACETIME_JUDGE_THE_HOUR_HAS_COME_DECISION_BRING_OTTON_TO_THE_COURT_OF_HONOR", decision => decision
                     .WithRequirement(() => Career >= 7)
                     .WithRequirement(() => Career < 10)
@@ -3901,19 +3911,19 @@ namespace BranteCalculator.Entities
     .WithRequirement(() => Career == 0)
     .WithRequirement(() => Stephan != Status.KILLED_IN_A_DUEL)
     .WithHiddenRequirement(() => !FinalPreparations.HasPassed)
-    .WithDecision("EVENTS_PEACETIME_JUDGE_INVITATION_TO_THE_BALL_DECISION_REJECT_DEMANDS", decision => decision
+    .WithDecision("EVENTS_PEACETIME_JUDGE_INVITATION_TO_THE_BALL_DECISION_REJECT_THE_DEMANDS", decision => decision
         .WithConsequence(() => Reputation.Add(-2))
         .WithConsequence(() => Unity.Add(-2)))
-    .WithDecision("EVENTS_PEACETIME_JUDGE_INVITATION_TO_THE_BALL_DECISION_ACCEPT_CONDITIONS", decision => decision
+    .WithDecision("EVENTS_PEACETIME_JUDGE_INVITATION_TO_THE_BALL_DECISION_ACCEPT_THE_CONDITIONS", decision => decision
         .WithConsequence(() => Justice.Add(-3)))
-    .WithDecision("EVENTS_PEACETIME_JUDGE_INVITATION_TO_THE_BALL_DECISION_CHALLENGE_EL_LABERIUS", decision => decision
+    .WithDecision("EVENTS_PEACETIME_JUDGE_INVITATION_TO_THE_BALL_DECISION_CHALLENGE_EL_LABERIUS_TO_A_DUEL", decision => decision
         .WithRequirement(() => Valor >= 18)
         .WithRequirement(() => CourtOfHonorBanned == false)
         .WithConsequence(() => Valor.Add(1))
         .WithConsequence(() => Willpower.Add(-5))
         .WithConsequence(() => Justice.Add(-1))
         .WithConsequence(() => Wealth.Add(-1)))
-    .WithDecision("EVENTS_PEACETIME_JUDGE_INVITATION_TO_THE_BALL_DECISION_EXPIATE_WITH_BLOOD", decision => decision
+    .WithDecision("EVENTS_PEACETIME_JUDGE_INVITATION_TO_THE_BALL_DECISION_EXPIATE_YOUR_ERRORS_WITH_BLOOD", decision => decision
         .WithRequirement(() => Valor <= 17)
         .WithRequirement(() => CourtOfHonorBanned == false)
         .WithConsequence(() => Willpower.Add(-5))
@@ -4059,23 +4069,23 @@ namespace BranteCalculator.Entities
        .WithConsequence(() => Inquisition.Add(-2))
        .WithConsequence(() => Willpower.Add(-10)))
    .Build());
-
-            Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_PRIVELEGE_AND_AUTHORITY", true)
+                                        
+            Events.Add(new EventBuilder("EVENTS_PEACETIME_INQUISITOR_PRIVILEGE_AND_AUTHORITY", true)
    .WithRequirement(() => PathOfThePriest == true)
    .WithRequirement(() => Inquisition >= 8)
    .WithHiddenRequirement(() => !TheFinalStep.HasPassed)
-   .WithDecision("EVENTS_PEACETIME_INQUISITOR_PRIVELEGE_AND_AUTHORITY_DECISION_LET_THE_NOBLEMAN_GO", decision => decision
+   .WithDecision("EVENTS_PEACETIME_INQUISITOR_PRIVILEGE_AND_AUTHORITY_DECISION_LET_THE_NOBLEMAN_GO", decision => decision
        .WithRequirement(() => Willpower >= 0)
        .WithRequirement(() => Ulrich >= 2)
        .WithConsequence(() => Inquisition.Add(-1))
        .WithConsequence(() => Willpower.Add(-5))
        .WithConsequence(() => Diplomacy.Add(1))
        .WithConsequence(() => Jeanne.Add(-1)))
-   .WithDecision("EVENTS_PEACETIME_INQUISITOR_PRIVELEGE_AND_AUTHORITY_DECISION_SUPPORT_ULRICH", decision => decision
+   .WithDecision("EVENTS_PEACETIME_INQUISITOR_PRIVILEGE_AND_AUTHORITY_DECISION_SUPPORT_ULRICH", decision => decision
        .WithConsequence(() => Church.Add(-1))
        .WithConsequence(() => Tolerance.Add(-2))
        .WithConsequence(() => Inquisition.Add(-1)))
-   .WithDecision("EVENTS_PEACETIME_INQUISITOR_PRIVELEGE_AND_AUTHORITY_DECISION_FABRICATE_EVIDENCE", decision => decision
+   .WithDecision("EVENTS_PEACETIME_INQUISITOR_PRIVILEGE_AND_AUTHORITY_DECISION_FABRICATE_EVIDENCE", decision => decision
        .WithRequirement(() => Scheming >= 12)
        .WithConsequence(() => Inquisition.Add(2))
        .WithConsequence(() => Scheming.Add(1)))
@@ -4095,7 +4105,7 @@ namespace BranteCalculator.Entities
       .WithConsequence(() => Church.Add(-1))
       .WithConsequence(() => Power.Add(-1))
       .WithConsequence(() => Tolerance.Add(-2))
-      .WithConsequence(() => Tolerance.Add(-2)))
+      .WithConsequence(() => Inquisition.Add(-2)))
   .WithDecision("EVENTS_PEACETIME_INQUISITOR_THE_NEW_SACRAMENT_DECISION_DEFEND_THE_NEW_BELIEVERS", decision => decision
       .WithRequirement(() => Eloquence >= 15)
       .WithRequirement(() => Willpower >= 0)
