@@ -65,6 +65,11 @@ namespace BranteCalculatorWPF
             if (SavedDecisions.ContainsKey(nextEvent))
             {
                 Decision savedDecision = SavedDecisions[nextEvent];
+                foreach(Decision decision in nextEvent.Decisions) 
+                {
+                    decision.UpdateAvailability();
+                }
+
                 if (savedDecision.IsAvailable)
                 {
                     savedDecision.Select();

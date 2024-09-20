@@ -112,6 +112,12 @@ namespace BranteCalculator.Entities
             }
         }
 
+        public void UpdateAvailability() 
+        {
+            _isAvailable = null;
+            OnPropertyChanged(nameof(IsAvailable));
+        }
+
         protected override void OnLocaleChanged(object? sender, EventArgs e)
         {
             OnPropertyChanged(nameof(LocalizedName));
