@@ -3094,6 +3094,8 @@ namespace BranteCalculator.Entities
                 .WithRequirement(() => Unrest >= 3)
                 .WithRequirement(() => Felipe == Status.SAW_YOUR_LOYALTY)
                 .WithRequirement(() => Sophia == Status.GROWN_CLOSE)
+                .WithRequirement(() => Power <= 0)
+                .WithRequirement(() => Egmont == Status.ARRESTED)
                 .WithDecision("EVENTS_PEACETIME_CONSPIRATOR_CLEAN_HANDS_DECISION_KEEP_SOPHIAS_SECRET", decision => decision
                     .WithRequirement(() => Manipulation >= 15)
                     .WithRequirement(() => Felipe >= 4)
@@ -4468,8 +4470,7 @@ namespace BranteCalculator.Entities
                     .WithConsequence(() => Octavia.Set(Status.BROUGHT_BACK))
                     .WithConsequence(() => Otton.Add(2)))
                 .WithDecision("EVENTS_REVOLT_JUDGE_A_FADING_LIGHT_DECISION_SHARE_A_FINAL_MOMENT_WITH_HER_BEFORE_SHE_LEAVES_THIS_WORLD", decision => decision
-                    .WithRequirement(() => Theology >= 14)
-                    .WithRequirement(() => TheLaTariRitual == true)
+                    .WithRequirement(() => Theology >= 14 || TheLaTariRitual == true)
                     .WithRequirement(() => Octavia == Status.SPIRITUAL_BOND)
                     .WithConsequence(() => Octavia.Set(Status.LEFT_A_TRACE)))
                 .WithDecision("EVENTS_REVOLT_JUDGE_A_FADING_LIGHT_DECISION_PART_WAYS_WITH_HER", decision => decision
