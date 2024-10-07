@@ -832,7 +832,7 @@ namespace BranteCalculator.Entities
 
             Events.Add(new EventBuilder("EVENTS_YOUTH_GENERAL_THE_CODE_OF_LAWS")
                                                                    .WithDecision("EVENTS_GENERAL_DECISION_CONTINUE", decision => decision
-                                                                                .WithConsequence(() => Power.Add(1)))
+                                                                                .WithConsequence(() => Power.Add(2)))
                                                                    .Build());
 
             Events.Add(new EventBuilder("EVENTS_YOUTH_GENERAL_THE_GIRL_FROM_YOUR_PAST")
@@ -5375,7 +5375,7 @@ namespace BranteCalculator.Entities
             Cassius = new Character("CHARACTER_PATRIARCH_CASSIUS", 0);
             Silvan = new Character("CHARACTER_SILVAN_SAMOSTA", 0);
 
-            Characters = new List<Character> { Gregor, Robert, Lydia, Stephan, Gloria, Nathan, Tommas, Sophia, Octavia, Jeanne, Otton, Felipe, Tempest, Milanidas, Egmont, Mark, ElVerman, Lennart, Cassius, Silvan };
+            Characters = new List<Character> { Gregor, Robert, Lydia, Stephan, Gloria, Nathan, Tommas, Sophia, ElBorne, Octavia, Jeanne, Otton, Felipe, Tempest, Milanidas, Egmont, Mark, ElVerman, Lennart, Cassius, Silvan };
         }
 
         public void Reset()

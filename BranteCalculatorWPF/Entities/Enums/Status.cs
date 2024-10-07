@@ -16,7 +16,7 @@ namespace BranteCalculator.Entities.Enums
         public static readonly Status BAD_BLOOD = new Status("CHARACTER_STATUS_STEPHAN_BRANTE_BAD_BLOOD");
         public static readonly Status REMEMBERS_YOU = new Status("CHARACTER_STATUS_OCTAVIA_MILANIDAS_REMEMBERS_YOU");
         public static readonly Status AQUAINTED = new Status("CHARACTER_STATUS_JEANNE_AQUAINTED");
-        public static readonly Status TRUSTING = new Status("CHARACTER_STATUS_SOPHIA_AQUAINTED");
+        public static readonly Status TRUSTING = new Status("CHARACTER_STATUS_SOPHIA_TRUSTING");
         public static readonly Status MERCILESS = new Status("CHARACTER_STATUS_SOPHIA_MERCILESS");
         public static readonly Status EMBITTERED = new Status("CHARACTER_STATUS_SOPHIA_EMBITTERED");
         public static readonly Status TRUE_DEATH = new Status("CHARACTER_STATUS_GENERAL_TRUE_DEATH");
